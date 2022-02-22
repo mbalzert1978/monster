@@ -2,7 +2,7 @@
 Monster Game v0.1 (OO)
 """
 import random
-from Player.player_module import (
+from Player.player import (
     HumanPlayer,
     RandomComputerPlayer,
     BetterComputerPlayer,
@@ -19,16 +19,6 @@ class MonsterGame:
     def __init__(self, print_game=False) -> None:
         self.current_winner = None
         self.print_game = print_game
-
-    def print_board(self, active_player, target):
-        """
-        prints the board
-        """
-        print(f"{self.rounds}, Rounds played ")
-        print(
-            f"{active_player.name}'s, remaining health: {active_player.health}"
-        )
-        print(f"{target.name}'s, remaining health: {target.health} ")
 
     @staticmethod
     def make_move(attacker, target, print_game=True):
