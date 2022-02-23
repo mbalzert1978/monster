@@ -72,7 +72,7 @@ class BetterComputerPlayer(Player):
         self.name = self.cpu_name if not name else name
         self.player_class = self.choose_class()
 
-    def choose_class(self) -> None:
+    def choose_class(self) -> BaseClass:
         """
         always chooses paladin class for selfheal
         """
@@ -97,7 +97,7 @@ class HumanPlayer(Player):
         self.name = input("Tell me the Name of your Hero: ")
         self.player_class = self.choose_class()
 
-    def choose_class(self) -> None:
+    def choose_class(self) -> BaseClass:
         """
         lets the player choose a class
         """

@@ -38,7 +38,7 @@ class MonsterGame:
         """
         gets attacker move and makes the move happen
         """
-        if attacker.get_move(attacker, target) == "attack":
+        if attacker.make_move(attacker, target) == "attack":
             attack = random.choice(
                 list(
                     range(
@@ -53,7 +53,7 @@ class MonsterGame:
                 )
             target.health -= attack
             return True
-        if attacker.get_move(attacker, target) == "heal":
+        if attacker.make_move(attacker, target) == "heal":
             if print_game:
                 print(
                     f"{attacker.name} heals himself for {attacker.player_class.heal}."
