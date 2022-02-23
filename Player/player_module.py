@@ -2,11 +2,14 @@
 player modul
 """
 import random
+from abc import ABC, abstractmethod
+from typing import Any
 from BasicClasses.player_classes import Paladin, Rogue
 from BasicClasses.moster_classes import Monster
+from BasicClasses.basic_class import BaseClass
 
 
-class Player:
+class Player(ABC):
     """
     player class
     attributes:
@@ -16,29 +19,16 @@ class Player:
     heal
     """
 
-    cpu_names = ["Hal9000", "T-800", "ED-209", "M.A.R.K.13"]
     available_player_classes = [Paladin, Rogue]
     available_cpu_classes = [Paladin, Rogue, Monster]
 
-    def __init__(self) -> None:
-        self.attack_min = None
-        self.attack_max = None
-        self.health = None
-        self.heal = None
+    def chose_class(self) -> None:
+        """chose base class or CPU class"""
 
-    def get_move(self, player, target) -> None:
+    def get_move(self, attacker, target) -> None:
         """
         interface get_move
         """
-
-    def set_attributes(self, class_) -> None:
-        """
-        sets attributes in class
-        """
-        self.attack_min = class_.attack_min
-        self.attack_max = class_.attack_max
-        self.health = class_.health
-        self.heal = class_.heal if hasattr(class_, "heal") else None
 
 
 class RandomComputerPlayer(Player):
@@ -46,23 +36,26 @@ class RandomComputerPlayer(Player):
     computerplayer class who picks random
     """
 
+    cpu_names = ["Hal9000", "T-800", "ED-209", "M.A.R.K.13"]
+
     def __init__(self, name: str = None) -> None:
         super().__init__()
         self.name = random.choice(self.cpu_names) if not name else name
-        self.choose_class()
+        self.player_class = self.choose_class()
 
-    def choose_class(self) -> None:
+    def choose_class(self) -> BaseClass:
         """
         CPU chooses random class
         """
-        self.set_attributes(random.choice(self.available_cpu_classes)())
+        return random.choice(self.available_cpu_classes)()
 
-    def get_move(self, player, target=None) -> int:
-        return (
-            "attack"
-            if player.heal is None or self.health >= 100
-            else random.choice(["attack", "heal"])
-        )
+    def get_move(self, attacker, target=None):
+        pass
+        # return (
+        #     "attack"
+        #     if attacker.heal is None or self.health >= 100
+        #     else random.choice(["attack", "heal"])
+        # )
 
 
 class BetterComputerPlayer(Player):
@@ -70,20 +63,24 @@ class BetterComputerPlayer(Player):
     hopefully a better CPU player
     """
 
+    cpu_name = "Uhter"
+
     def __init__(self, name: str = None) -> None:
         super().__init__()
-        self.name = random.choice(self.cpu_names) if not name else name
-        self.choose_class()
+        self.name = self.cpu_name if not name else name
+        self.player_class = self.choose_class()
 
     def choose_class(self) -> None:
         """
         always chooses paladin class for selfheal
         """
-        self.set_attributes(Paladin())
+        return Paladin()
 
-    def get_move(self, player, target=None) -> int:
+    def get_move(self, attacker, target=None) -> str:
         return (
-            "heal" if player.health <= 35 and target.health >= 10 else "attack"
+            "heal"
+            if attacker.health <= 35 and target.health >= 10
+            else "attack"
         )
 
 
@@ -96,21 +93,23 @@ class HumanPlayer(Player):
     def __init__(self) -> None:
         super().__init__()
         self.name = input("Tell me the Name of your Hero: ")
-        self.choose_class()
+        self.player_class = self.choose_class()
 
     def choose_class(self) -> None:
         """
         lets the player choose a class
         """
+        valid = [class_.class_name for class_ in self.available_player_classes]
+
         user_input = self.get_input(
-            list(range(1, len(self.available_player_classes) + 1)),
-            "What Class you want to play?",
-            "Paladin(1), Rogue(2): ",
+            valid=valid,
+            decorator="What Class you want to play?",
+            question=f"{', '.join(valid)}: ",
         )
-        self.set_attributes(self.available_player_classes[user_input - 1]())
+        return eval(user_input)()
 
     @staticmethod
-    def get_input(valid: list, decorator: str, question: str) -> int:
+    def get_input(valid: list, decorator: str, question: str) -> Any:
         """
         checks user input and returns user input as int
         """
@@ -124,9 +123,10 @@ class HumanPlayer(Player):
             except ValueError:
                 print("No valid choice, try again.")
 
-    def get_move(self, player, target=None) -> int:
-        return self.get_input(
-            ["attack", "heal"],
-            "What do you want to do?",
-            "attack or heal: " if player.heal is not None else "attack: ",
-        )
+    def get_move(self, attacker, target=None) -> int:
+        pass
+        # return self.get_input(
+        #     ["attack", "heal"],
+        #     "What do you want to do?",
+        #     "attack or heal: " if player.heal is not None else "attack: ",
+        # )

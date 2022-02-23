@@ -11,6 +11,7 @@ class BaseClass(ABC):
     base Class
     """
 
+    class_name: str
     attack_min: int
     attack_max: int
     health: int

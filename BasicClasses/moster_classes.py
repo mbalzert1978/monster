@@ -8,6 +8,7 @@ class Monster(BaseClass):
     Base Monster Class
     """
 
+    class_name: str = "Morghul"
     attack_min: int = 10
     attack_max: int = 15
     health: int = 150

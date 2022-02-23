@@ -4,6 +4,7 @@ Monster Game v0.1 (OO)
 import random
 from Player.player_module import (
     HumanPlayer,
+    Player,
     RandomComputerPlayer,
     BetterComputerPlayer,
 )
@@ -26,9 +27,11 @@ class MonsterGame:
         """
         print(f"{self.rounds}, Rounds played ")
         print(
-            f"{active_player.name}'s, remaining health: {active_player.health}"
+            f"{active_player.name}'s, remaining health: {active_player.player_class.health}"
         )
-        print(f"{target.name}'s, remaining health: {target.health} ")
+        print(
+            f"{target.name}'s, remaining health: {target.player_class.health} "
+        )
 
     @staticmethod
     def make_move(attacker, target, print_game=True):
@@ -37,7 +40,12 @@ class MonsterGame:
         """
         if attacker.get_move(attacker, target) == "attack":
             attack = random.choice(
-                list(range(attacker.attack_min, attacker.attack_max + 1))
+                list(
+                    range(
+                        attacker.player_class.attack_min,
+                        attacker.player_class.attack_max + 1,
+                    )
+                )
             )
             if print_game:
                 print(
@@ -47,7 +55,9 @@ class MonsterGame:
             return True
         if attacker.get_move(attacker, target) == "heal":
             if print_game:
-                print(f"{attacker.name} heals himself for {attacker.heal}.")
+                print(
+                    f"{attacker.name} heals himself for {attacker.player_class.heal}."
+                )
             attacker.health += attacker.heal
             return True
         return False
@@ -71,7 +81,7 @@ class MonsterGame:
         return result
 
 
-def play(game, player1, player2, print_game=True):
+def play(game: MonsterGame, player1: Player, player2: Player, print_game=True):
     """Play game function"""
     shuffle_players = [player1, player2]
     random.shuffle(shuffle_players)
@@ -97,12 +107,12 @@ if __name__ == "__main__":
     CPU1WINS = 0
     CPU2WINS = 0
     for _ in range(1000):
-        # human_player = HumanPlayer()
-        random_cpu = RandomComputerPlayer("random_cpu1")
+        human_player = HumanPlayer()
+        random_cpu = RandomComputerPlayer()
         random_cpu2 = RandomComputerPlayer("random_cpu2")
         better_cpu = BetterComputerPlayer("better_cpu")
         m = MonsterGame(False)
-        result = play(m, random_cpu, random_cpu2, False)
+        result = play(m, human_player, random_cpu, True)
         if "random_cpu1" in result:
             CPU1WINS += 1
         if "better_cpu" in result or "random_cpu2" in result:
