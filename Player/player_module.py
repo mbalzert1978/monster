@@ -78,7 +78,7 @@ class BetterComputerPlayer(Player):
         """
         return Paladin()
 
-    def get_move(self, attacker, target=None) -> str:
+    def make_move(self, attacker, target=None) -> str:
         return (
             "heal"
             if attacker.health <= 35 and target.health >= 10
@@ -125,7 +125,7 @@ class HumanPlayer(Player):
             except ValueError:
                 print("No valid choice, try again.")
 
-    def get_move(self, attacker, target=None) -> int:
+    def make_move(self, attacker, target=None) -> int:
         pass
         # return self.get_input(
         #     ["attack", "heal"],
