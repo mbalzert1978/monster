@@ -2,7 +2,8 @@
 player modul
 """
 import random
-from UnitClass.unit_class import Paladin, Rogue, Monster
+from BasicClasses.player_classes import Paladin, Rogue
+from BasicClasses.moster_classes import Monster
 
 
 class Player:
