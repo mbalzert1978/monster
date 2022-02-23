@@ -83,10 +83,9 @@ class MonsterGame:
 
 def play(game: MonsterGame, player1: Player, player2: Player, print_game=True):
     """Play game function"""
-    shuffle_players = [player1, player2]
-    random.shuffle(shuffle_players)
-    attacker, target = shuffle_players[0], shuffle_players[1]
-    # target = player2
+    attacker, target = who_goes_first(player1, player2)
+    # shuffle_players = shuffle_start_player(player1, player2)
+    # attacker, target = shuffle_players[0], shuffle_players[1]
     while not game.current_winner:
         if print_game:
             game.print_board(attacker, target)
@@ -103,14 +102,21 @@ After {game.rounds} rounds."
         game.rounds += 1
 
 
+def who_goes_first(player1: Player, player2: Player) -> list:
+    """shuffles the player"""
+    shuffle_players = [player1, player2]
+    random.shuffle(shuffle_players)
+    return shuffle_players
+
+
 if __name__ == "__main__":
     CPU1WINS = 0
     CPU2WINS = 0
     for _ in range(1000):
         human_player = HumanPlayer()
         random_cpu = RandomComputerPlayer()
-        random_cpu2 = RandomComputerPlayer("random_cpu2")
-        better_cpu = BetterComputerPlayer("better_cpu")
+        # random_cpu2 = RandomComputerPlayer("random_cpu2")
+        # better_cpu = BetterComputerPlayer("better_cpu")
         m = MonsterGame(False)
         result = play(m, human_player, random_cpu, True)
         if "random_cpu1" in result:
