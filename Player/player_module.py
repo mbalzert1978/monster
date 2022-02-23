@@ -22,10 +22,12 @@ class Player(ABC):
     available_player_classes = [Paladin, Rogue]
     available_cpu_classes = [Paladin, Rogue, Monster]
 
+    @abstractmethod
     def chose_class(self) -> None:
         """chose base class or CPU class"""
 
-    def get_move(self, attacker, target) -> None:
+    @abstractmethod
+    def make_move(self, attacker, target) -> None:
         """
         interface get_move
         """
@@ -49,7 +51,7 @@ class RandomComputerPlayer(Player):
         """
         return random.choice(self.available_cpu_classes)()
 
-    def get_move(self, attacker, target=None):
+    def make_move(self, attacker, target=None):
         pass
         # return (
         #     "attack"
