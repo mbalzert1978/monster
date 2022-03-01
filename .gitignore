@@ -1,2 +1,4 @@
 **/venv
-**__pycache
+**__pycache__
+**.vscode
+testcode.py
