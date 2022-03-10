@@ -18,40 +18,36 @@ class MonsterGame:
         self.current_winner: Player = None
         self.print_game = print_game
 
-    def print_board(self, attacker: Player, target: Player):
+    def print_board(self, attack: Player, target: Player):
         """
         prints the board
         """
         print(f"{self.rounds}, Rounds played ")
-        print(
-            f"{attacker.name}'s, remaining health: {attacker.hero_class.health}"
-        )
+        print(f"{attack.name}'s, remaining health: {attack.hero_class.health}")
         print(
             f"{target.name}'s, remaining health: {target.hero_class.health} "
         )
 
-    def make_move(self, attacker: Player, target: Player) -> None:
+    def make_move(self, attack: Player, target: Player) -> None:
         """
         gets attacker move and makes the move happen
         """
-        result, is_attack = attacker.get_move()()
+        result, is_attack = attack.get_move()()
         if is_attack:
             if self.print_game:
-                print(
-                    f"{attacker.name} hits {target.name} for {result} damage."
-                )
+                print(f"{attack.name} hits {target.name} for {result} damage.")
             target.hero_class.set_health(-result)
             return
         if self.print_game:
-            print(f"{attacker.name} heals himself for {result}.")
-        attacker.hero_class.set_health(result)
+            print(f"{attack.name} heals himself for {result}.")
+        attack.hero_class.set_health(result)
 
-    def is_winner(self, player: Player, target: Player) -> bool:
+    def is_winner(self, attack: Player, target: Player) -> bool:
         """
         checks wincondition
         """
         if target.hero_class.health <= 0:
-            self.current_winner = player
+            self.current_winner = attack
             return True
         return False
 
@@ -67,13 +63,12 @@ def play(game, player1, player2):
         game.is_winner(attacker, target)
         attacker, target = target, attacker
         game.rounds += 1
-    if game.current_winner:
-        if game.print_game:
-            print(
-                f"{attacker.name} wins the Match.\
+    if game.print_game:
+        print(
+            f"{attacker.name} wins the Match.\
 After {game.rounds} rounds."
-            )
-        return attacker.name
+        )
+    return attacker.name
 
 
 def shuffle_players(player_list) -> list[Player]:
