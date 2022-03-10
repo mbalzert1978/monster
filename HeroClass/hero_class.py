@@ -25,8 +25,10 @@ class BaseHero(ABC):
         """sets health"""
         if self.health + change > 100:
             self.health = 100
+            return
         if self.health + change <= 0:
             self.health = 0
+            return
         self.health += change
 
 

@@ -5,9 +5,12 @@ from HeroClass.hero_class import BaseHero
 
 
 class Player(ABC):
-    def __init__(self, hero_classes: dict[BaseHero]) -> None:
+    def __init__(self, hero_classes: dict[BaseHero], name=None) -> None:
         self.hero_classes = hero_classes
-        self.name = self.get_name()
+        if not name:
+            self.name = self.get_name()
+        else:
+            self.name = name
         self.hero_class = self.get_hero_class()
 
     @abstractmethod
