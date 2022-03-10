@@ -2,7 +2,7 @@
 Monster Game v0.1 (OO)
 """
 import random
-
+from tqdm import tqdm
 from HeroClass.hero_class import Paladin, Rogue
 from Player.player_modul import Player, HumanPlayer, RandomCPUPlayer
 
@@ -89,8 +89,9 @@ if __name__ == "__main__":
     # play(monster_game, human, random_cpu)
 
     # old code
-    human_player = HumanPlayer(hero_classes=available_hero_classes)
-    for _ in range(1000):
+    # human_player = HumanPlayer(hero_classes=available_hero_classes)
+    rounds = range(1000000)
+    for _ in tqdm(rounds):
         random_cpu = RandomCPUPlayer(
             name="random_cpu1",
             hero_classes=available_hero_classes,
@@ -107,6 +108,6 @@ if __name__ == "__main__":
         if "better_cpu" in result.name or "random_cpu2" in result.name:
             CPU2WINS += 1
     print(
-        f"after 1000 rounds, we see random_cpu {CPU1WINS} \
+        f"after {rounds} rounds, we see random_cpu {CPU1WINS} \
 wins, and better_cpu {CPU2WINS} wins"
     )
