@@ -73,7 +73,7 @@ class HumanPlayer(Player):
         while True:
             print("What do you want to do? ")
             print(
-                f"{self.hero_class.cooldown} Rounds of cooldown for specialmove"
+                f"{self.hero_class.cooldown} Rounds cooldown for specialmove"
             )
             try:
                 val = input(f"{', '.join(valid)} :")
