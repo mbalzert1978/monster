@@ -68,7 +68,7 @@ def play(game, player1, player2):
             f"{attacker.name} wins the Match.\
 After {game.rounds} rounds."
         )
-    return attacker.name
+    return game.current_winner
 
 
 def shuffle_players(player_list) -> list[Player]:
@@ -79,27 +79,32 @@ def shuffle_players(player_list) -> list[Player]:
 if __name__ == "__main__":
     CPU1WINS = 0
     CPU2WINS = 0
-    available_hero_classes = {"Paladin": Paladin, "Rogue": Rogue}
+    available_hero_classes = {
+        "Paladin": Paladin,
+        "Rogue": Rogue,
+    }
     # human = HumanPlayer(available_hero_classes)
     # random_cpu = RandomCPUPlayer(available_hero_classes)
     # monster_game = MonsterGame(print_game=True)
     # play(monster_game, human, random_cpu)
 
     # old code
+    human_player = HumanPlayer(hero_classes=available_hero_classes)
     for _ in range(1000):
-        # human_player = HumanPlayer()
         random_cpu = RandomCPUPlayer(
-            name="random_cpu1", hero_classes=available_hero_classes
+            name="random_cpu1",
+            hero_classes=available_hero_classes,
         )
         random_cpu2 = RandomCPUPlayer(
-            name="random_cpu2", hero_classes=available_hero_classes
+            name="random_cpu2",
+            hero_classes=available_hero_classes,
         )
         # better_cpu = BetterComputerPlayer("better_cpu")
         m = MonsterGame(False)
         result = play(m, random_cpu, random_cpu2)
-        if "random_cpu1" in result:
+        if "random_cpu1" in result.name:
             CPU1WINS += 1
-        if "better_cpu" in result or "random_cpu2" in result:
+        if "better_cpu" in result.name or "random_cpu2" in result.name:
             CPU2WINS += 1
     print(
         f"after 1000 rounds, we see random_cpu {CPU1WINS} \

@@ -39,6 +39,19 @@ class RandomCPUPlayer(Player):
         ]
 
 
+class BetterCPUPlayer(Player):
+    def get_name(self) -> None:
+        return "Uther"
+
+    def get_hero_class(self) -> None:
+        return self.hero_classes["Paladin"]()
+
+    def get_move(self):
+        return self.hero_class.actions[
+            random.choice(list(self.hero_class.actions))
+        ]
+
+
 class HumanPlayer(Player):
     def get_name(self):
         return input("Please Name your Hero: ")
