@@ -2,9 +2,11 @@
 Monster Game v0.1 (OO)
 """
 import random
+
 from tqdm import tqdm
+
 from HeroClass.hero_class import Paladin, Rogue
-from Player.player_modul import Player, HumanPlayer, RandomCPUPlayer
+from Player.player_modul import HumanPlayer, Player, RandomCPUPlayer
 
 
 class MonsterGame:
@@ -18,7 +20,7 @@ class MonsterGame:
         self.current_winner: Player = None
         self.print_game = print_game
 
-    def print_board(self, attack: Player, target: Player):
+    def print_board(self, attack: Player, target: Player) -> None:
         """
         prints the board
         """
@@ -64,10 +66,7 @@ def play(game, player1, player2):
         attacker, target = target, attacker
         game.rounds += 1
     if game.print_game:
-        print(
-            f"{attacker.name} wins the Match.\
-After {game.rounds} rounds."
-        )
+        print(f"{attacker.name} wins the Match. After {game.rounds} rounds.")
     return game.current_winner
 
 
@@ -90,7 +89,7 @@ if __name__ == "__main__":
 
     # old code
     # human_player = HumanPlayer(hero_classes=available_hero_classes)
-    rounds = range(1000000)
+    rounds = range(10000)
     for _ in tqdm(rounds):
         random_cpu = RandomCPUPlayer(
             name="random_cpu1",
@@ -108,6 +107,6 @@ if __name__ == "__main__":
         if "better_cpu" in result.name or "random_cpu2" in result.name:
             CPU2WINS += 1
     print(
-        f"after {rounds} rounds, we see random_cpu {CPU1WINS} \
-wins, and better_cpu {CPU2WINS} wins"
+        f"after {rounds} rounds, we see random_cpu {CPU1WINS} "
+        f"wins, and better_cpu {CPU2WINS} wins"
     )

@@ -81,9 +81,7 @@ class BetterComputerPlayer(Player):
         self.set_attributes(Paladin())
 
     def get_move(self, player, target=None) -> int:
-        return (
-            "heal" if player.health <= 35 and target.health >= 10 else "attack"
-        )
+        return "heal" if player.health <= 35 and target.health >= 10 else "attack"
 
 
 class HumanPlayer(Player):
