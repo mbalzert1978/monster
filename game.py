@@ -26,9 +26,7 @@ class MonsterGame:
         """
         print(f"{self.rounds}, Rounds played ")
         print(f"{attack.name}'s, remaining health: {attack.hero_class.health}")
-        print(
-            f"{target.name}'s, remaining health: {target.hero_class.health} "
-        )
+        print(f"{target.name}'s, remaining health: {target.hero_class.health} ")
 
     def make_move(self, attack: Player, target: Player) -> None:
         """

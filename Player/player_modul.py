@@ -31,9 +31,7 @@ class RandomCPUPlayer(Player):
         return self.hero_classes[random.choice(list(self.hero_classes))]()
 
     def get_move(self):
-        return self.hero_class.actions[
-            random.choice(list(self.hero_class.actions))
-        ]
+        return self.hero_class.actions[random.choice(list(self.hero_class.actions))]
 
 
 class BetterCPUPlayer(Player):
@@ -44,9 +42,7 @@ class BetterCPUPlayer(Player):
         return self.hero_classes["Paladin"]()
 
     def get_move(self):
-        return self.hero_class.actions[
-            random.choice(list(self.hero_class.actions))
-        ]
+        return self.hero_class.actions[random.choice(list(self.hero_class.actions))]
 
 
 class HumanPlayer(Player):
@@ -69,9 +65,7 @@ class HumanPlayer(Player):
         valid = list(self.hero_class.actions)
         while True:
             print("What do you want to do? ")
-            print(
-                f"{self.hero_class.cooldown} Rounds cooldown for specialmove"
-            )
+            print(f"{self.hero_class.cooldown} Rounds cooldown for specialmove")
             try:
                 val = input(f"{', '.join(valid)} :")
                 if val in valid:
