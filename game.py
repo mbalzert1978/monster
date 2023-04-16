@@ -43,19 +43,17 @@ class MonsterGame:
         return False
 
     @staticmethod
-    def is_health_zero(player) -> bool:
+    def is_player_dead(player) -> bool:
         """
         checks if any player has 0 health
         """
-        if player.health <= 0:
-            return True
-        return False
+        return player.health <= 0
 
     def is_winner(self, player, target) -> bool:
         """
         checks wincondition
         """
-        result = self.is_health_zero(target)
+        result = self.is_player_dead(target)
         if result:
             self.current_winner = player
         return result
@@ -75,8 +73,8 @@ def play(game, player1, player2, print_game=True):
         if game.current_winner:
             if print_game:
                 print(
-                    f"{attacker.name} wins the Match.\
-After {game.rounds} rounds."
+                    f"{attacker.name} wins the Match. "
+                    f"After {game.rounds} rounds."
                 )
             return attacker.name
         attacker, target = target, attacker
@@ -98,6 +96,6 @@ if __name__ == "__main__":
         if "better_cpu" in result or "random_cpu2" in result:
             CPU2WINS += 1
     print(
-        f"after 1000 rounds, we see random_cpu {CPU1WINS} \
-wins, and better_cpu {CPU2WINS} wins"
+        f"after 1000 rounds, we see random_cpu {CPU1WINS} "
+        f"wins, and better_cpu {CPU2WINS} wins"
     )
